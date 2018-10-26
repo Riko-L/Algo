@@ -265,3 +265,59 @@ function sort(algo) {
     var sort_fn = algorithms[algo];
     sort_fn();
 }
+
+//////////////////// OK ///////////////////////////////////
+// function quicksort() {
+//     quicksortin(csvData, 'random', 0, csvData.length - 1);
+// }
+
+// function quicksortin(aa, pivot_type, left, right) {
+//     if (typeof(left) === 'undefined') left = 0;
+//     if (typeof(right) === 'undefined') left = aa.length - 1;
+
+//     if (left >= right) return;
+
+//     var pivot = partition(aa, pivot_type, left, right);
+//     quicksortin(aa, pivot_type, left, pivot - 1);
+//     quicksortin(aa, pivot_type, pivot + 1, right);
+// }
+
+// function partition(aa, pivot_type, left, right) {
+//     var pivot = choose_pivot(aa, pivot_type, left, right);
+//     swap(pivot, right);
+
+//     pivot = left;
+//     for (var i = left; i < right; i++) {
+//         if (isLess(i, right)) {
+//             if (i !== pivot) {
+//                 swap(i, pivot)
+//             }
+//             pivot += 1;
+//         }
+//     }
+//     swap(right, pivot);
+
+//     return pivot;
+// }
+
+// function choose_pivot(aa, pivot_type, left, right) {
+//     if (typeof(left) === 'undefined') left = 0;
+//     if (typeof(right) === 'undefined') right = aa.length - 1;
+//     var pivot = null;
+
+//     if (pivot_type === 'random') {
+//         pivot = Math.floor(Math.random() * (right - left)) + left;
+//     } else if (pivot_type === 'first') {
+//         pivot = left;
+//     } else if (pivot_type === 'last') {
+//         pivot = right;
+//     } else if (pivot_type === 'middle') {
+//         pivot = Math.round((left + right) / 2)
+//     } else if (pivot_type === 'median') {
+
+//     } else {
+//         throw 'invalid pivot_type ' + pivot_type;
+//     }
+
+//     return pivot;
+// }
