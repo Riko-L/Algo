@@ -171,6 +171,7 @@ function myPart(table, left, right) {
 
         if(isLess(pivot,left)) {
            table.splice(pivot + 1 , 0 , table[left]);
+           table.splice(left,1);
            pivot =-1;
         }
         // Inserere apres pivot ...
@@ -182,6 +183,7 @@ function myPart(table, left, right) {
         // Inserere apres pivot ...
         if(isLess(right,pivot)) {
             table.splice(pivot - 1 , 0 , table[right]);
+            table.splice(right,1);
             pivot =+1;
          }
         right--;
