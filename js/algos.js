@@ -105,8 +105,10 @@ function heapsort(data) {
 function quicksort() {
     console.log("quicksort()  START AT : " + new Date());
 
-    // mySort(csvData);
-    mySort2(csvData, 0, csvData.length - 1);
+    //var data = mySort(csvData);
+    //console.log(data);
+
+    mySort2(csvData, 0, csvData.length - 1, "FIRST");
 
     console.log("FINI");
 
@@ -153,8 +155,24 @@ function mySort(table) {
     return finalTable;
 }
 
-function myPart(table, left, right) {
-    
+function mySort2(table, left, right, name) {
+
+
+    var data = myPart(table, left, right, name);
+    if (data.T1 == null && data.T2 == null)
+        return;
+    console.log(data)
+
+    if (data.T1 != null)
+        mySort2(table, data.T1[0], data.T1[1], "T1")
+
+    if (data.T2 != null)
+        mySort2(table, data.T2[0], data.T2[1], "T2")
+
+}
+
+function myPart(table, left, right, name) {
+
     if (left == null || typeof left == 'undefined') {
         left = 0;
     }
@@ -163,86 +181,47 @@ function myPart(table, left, right) {
     }
 
     var pivot = getIndexRandomFromLR(left, right);
-    
-    console.log(left , '<==>' , right , 'pivot : ' , pivot);
+    var tmpL = left;
+    var tmpR = right;
 
-    while (left != pivot) {
-        // Tester
-
-        if(isLess(pivot,left)) {
-           table.splice(pivot + 1 , 0 , table[left]);
-           table.splice(left,1);
-           pivot =-1;
+    do {
+        //left inferieur a pivot
+        while (isLess(left, pivot)) {
+            ++left;
         }
-        // Inserere apres pivot ...
-        left++;
+        //right superieur a pivot
+        while (isLess(pivot, right)) {
+            --right;
+        }
+        //left superieur a pivot ET right inferieur a pivot
+        if (isLess(pivot, left) && isLess(right, pivot)) {
+            swap(left, right);
+            ++left;
+            --right;
+        }
+        // index left == index pivot ET right inferieur a pivot
+        if (left == pivot && isLess(right, pivot)) {
+            swap(right, pivot);
+            pivot = right;
+        }
+        //  index right == index pivot Et left superieur a pivot
+        if (right == pivot && isLess(pivot, left)) {
+            swap(left, pivot);
+            pivot = left;
+        }
+    } while (left != right);
+
+    return {
+        "T1": pivot > tmpL && tmpL != pivot - 1 ? [tmpL, pivot - 1] : null,
+        "T2": pivot < tmpR && tmpR != pivot + 1 ? [pivot + 1, tmpR] : null,
+        "NAME": name,
+        "PIVOT SELECTED": pivot,
+        "LEFT": tmpL,
+        "RIGHT": tmpR
     }
 
-    while (right != pivot) {
-        // Tester
-        // Inserere apres pivot ...
-        if(isLess(right,pivot)) {
-            table.splice(pivot - 1 , 0 , table[right]);
-            table.splice(right,1);
-            pivot =+1;
-         }
-        right--;
-    }
-
-
-
-    // do {
-
-    //     //left inferieur a pivot
-    //     while (isLess(left, pivot)) {
-    //         ++left;
-    //     }
-    //     //right superieur a pivot
-    //     while (isLess(pivot, right)) {
-    //         --right;
-    //     }
-
-    //     //left superieur a pivot ET right inferieur a pivot
-    //     if (isLess(pivot,left) && isLess(right,pivot)) {
-    //         swap(left, right);
-    //         ++left;
-    //         --right;
-    //     }
-    //    // index left == index pivot ET right inferieur a pivot
-    //     if (left == pivot && isLess(right,pivot) ) {
-    //         swap(right, pivot);
-    //         pivot = right;
-    //     }
-    //     //  index right == index pivot Et left superieur a pivot
-    //     if (right == pivot && isLess(pivot,left)) {
-    //         swap(left, pivot);
-    //         pivot = left;
-            
-    //     }
-
-    // } while (left != right );
-    
-    return pivot;
 }
 
-function mySort2(table, left ,right) {
-
-    console.log("Left : " + pivot);
-    console.log("Right : " + pivot);
-
-    var pivot = myPart(table, left, right);
-
-    console.log("Pivot : " + pivot);
-    console.log("Left : " + pivot);
-    console.log("Right : " + pivot);
-    
-    if(left < pivot)
-        mySort2(table, 0, pivot - 1); // [0,1,2] , 0 - 2
-
-    if (right > pivot)
-        mySort2(table, pivot + 1, table.length - 1);
-
-}
 
 function quick3sort(data) {
     console.log("implement me !");
